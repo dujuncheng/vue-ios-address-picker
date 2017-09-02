@@ -1,54 +1,36 @@
-# vue-ios-address-picker
+# renthouse_h5
 
-基于vue构建的h5移动端实现仿ios三级联动原生地址滚动选择框。
-
+> A Vue.js project
 
 ## 预览
-![](http://image.dydata.io/TWEb1kA6eyU3NpZZQiv2Ah.gif)
+http://dujuncheng.com.cn:83/addresspicke#/
 
-## Installation
-```
-1. git clone https://github.com/dujuncheng/vue-ios-address-picker.git
-2. cd my-project
-3. npm install 
-4. npm run dev 
-```
+请点击链接预览，请在手机端，或者是移动调试工具中查看
 
-## Quick Start
+## 需求
+在我们前端业务开发过程中，填写地址表单是非常常见的需求。然而在h5页面要模拟ios 原生的惯性滚动，三级联动的地址选择框很复杂，所以很多大公司，比如说京东，小米的地址选择框在ios 端和 webapp 端无法做到统一。所以我开发了这个仿ios原生的惯性滚动的组件，可以在一定程度上解决这个问题；
 
-1.the first thing you need todo is import this component, just like below:
-```
-import addresspicker from '@/components/addressSelector';
-export default {
-  name: 'hello',
-  data () {
-    return {
-      title: '请输入您的个人信息'
-    }
-  },
-  components:{
-    addresspicker
-  },
-  methods:{
-    selectdata (data) {
-      console.log(data)
-    }
-  }
-}
-```
+## 实现
+1. 自适应手机屏幕，viewport 禁止用户缩放
+2. 实现了惯性滚动
+3. 实现了三级联动
+4. 事件节流，解决了在低端智能机上的卡顿问题
+5. 暴露出惯性参数，滚动速度的接口，开发者可以传入自定义的参数
 
-2. you would like to adjust some params of this component to make this suited for you.
+## Build Setup
 
-```
-/* 
-container-height 为奇数，表示弹出框的高度，如:container-height="5" 为5rem
-selectdata 为父组件注册的方法，如：
-  selectdata (data) {
-    console.log(data)   // data 为用户选中的地址
-  }
-*/ 
-<address-selector :container-height="5" v-on:selectdata="selectdata"></address-selector>
-```
+``` bash
+# install dependencies
+npm install
 
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+```
 
 

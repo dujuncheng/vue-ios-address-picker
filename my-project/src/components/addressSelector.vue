@@ -66,6 +66,8 @@
     props:['containerHeight','inertia','speed'],
     data () {
       return{
+        move_pre:Date.now(),
+        move_now:Date.now(),
         lareadata: [
           {
             "value": "110000",
@@ -4380,6 +4382,19 @@
       }
     },
     methods: {
+      debounceMoves (f,delay) {
+        var prev = Date.now();
+        return function(){
+          var context = this;
+          var args = arguments;
+          var now = Date.now();
+          alert(1);
+          if(now-prev>=delay){
+            f.apply(context,args);
+            prev = Date.now();
+          }
+        }
+      },
       showBoard () {
         this.boardShow = true
       },
@@ -4423,17 +4438,21 @@
       },
       gearTouchMove(e) {
         e.preventDefault();
-        clearInterval(this.intervalId);
         var self =this;
-        var currentRow = self.getRealTarget(e);
-        currentRow.new_screenY = e.targetTouches[0].screenY;
-        currentRow.new_time = (new Date()).getTime();
-        var diff = (currentRow.new_screenY - currentRow.old_screenY) / 100000*self.speed;
-        currentRow.top = currentRow.top - diff;
-        if(e.targetTouches[0].screenY<1){
-          self.gearTouchEnd(e);
-        };
-        currentRow.transitionDuration = '0ms'
+        self.move_now = Date.now();
+        if(self.move_now - self.move_pre > 30){
+          clearInterval(this.intervalId);
+          var currentRow = self.getRealTarget(e);
+          currentRow.new_screenY = e.targetTouches[0].screenY;
+          currentRow.new_time = (new Date()).getTime();
+          var diff = (currentRow.new_screenY - currentRow.old_screenY) / 100000*self.speed;
+          currentRow.top = currentRow.top - diff;
+          if(e.targetTouches[0].screenY<1){
+            self.gearTouchEnd(e);
+          };
+          currentRow.transitionDuration = '0ms'
+          self.move_pre = Date.now();
+        }
       },
       gearTouchEnd (e) {
         var self = this;

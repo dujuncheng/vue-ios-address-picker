@@ -4570,6 +4570,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
   /*市级样式*/
@@ -4582,10 +4586,13 @@
     text-align: center;
   }
   .city-item{
-    width: 100;
     display: flex;
     align-items: center;
     justify-content: center;
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
   /*县级样式*/
@@ -4601,6 +4608,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    display:block;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
   }
 
   .cut-line{

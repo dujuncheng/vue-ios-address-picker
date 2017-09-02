@@ -3,7 +3,23 @@
     <input type="text" placeholder="请输入您的姓名" class="item" >
     <input type="text" placeholder="请输入您的年龄" class="item" >
     <input type="number" placeholder="请输入您的手机号" class="item" >
-    <addresspicker :container-height="5" v-on:selectdata="selectdata"></addresspicker>
+    <addresspicker :container-height="7" v-on:selectdata="selectdata" class="item" :inertia="inertia" :speed="speed"></addresspicker>
+    <div class="controller-container">
+      <div class="title">
+        <p>您可以在这里调整组件的参数</p>
+      </div>
+      <div class="speed-container">
+        <div class="speed-title">滚动速度</div>
+        <el-slider v-model="speed" show-input class="speed-control"></el-slider>
+      </div>
+      <div class="inertia-container">
+        <div class="inertia-title">阻力大小</div>
+        <el-slider v-model="inertia" show-input class="inertia-control"></el-slider>
+      </div>
+      <div class="desc">
+        <p>貌似饿了么的ui不支持移动端的滑动？那就点击右侧的加减</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -13,7 +29,9 @@ export default {
   name: 'hello',
   data () {
     return {
-      title: '请输入您的个人信息'
+      title: '请输入您的个人信息',
+      inertia:30,
+      speed:12
     }
   },
   components:{
@@ -29,6 +47,33 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
+  .inertia-container{
+    height: 1rem;
+    display: flex;
+  }
+  .inertia-title{
+    flex: 1;
+    font-size: 0.35rem;
+  }
+  .inertia-control{
+    flex: 4;
+  }
+
+  .speed-container{
+    height: 1rem;
+    display: flex;
+  }
+  .speed-title{
+    flex: 1;
+    font-size: 0.35rem;
+  }
+  .speed-control{
+    flex: 4;
+  }
+  .controller-container{
+    padding: 80px 20px;
+  }
   .container{
     font-size: 0.5rem;
   }

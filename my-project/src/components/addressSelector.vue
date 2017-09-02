@@ -63,7 +63,7 @@
 
 <script type="text/ecmascript-6">
   export default {
-    props:['containerHeight'],
+    props:['containerHeight','inertia','speed'],
     data () {
       return{
         lareadata: [
@@ -4428,7 +4428,7 @@
         var currentRow = self.getRealTarget(e);
         currentRow.new_screenY = e.targetTouches[0].screenY;
         currentRow.new_time = (new Date()).getTime();
-        var diff = (currentRow.new_screenY - currentRow.old_screenY) / 1000;
+        var diff = (currentRow.new_screenY - currentRow.old_screenY) / 100000*self.speed;
         currentRow.top = currentRow.top - diff;
         if(e.targetTouches[0].screenY<1){
           self.gearTouchEnd(e);
@@ -4476,7 +4476,7 @@
           self.setChildList(currentRow)
         }
         self.intervalId = setInterval(function() {
-          var add = currentRow.speed * Math.exp(-0.03 * d);
+          var add = currentRow.speed * Math.exp(-self.inertia/100 * d);
           currentRow.top = currentRow.top + (-add);
           if ( currentRow.top < 0) {
             currentRow.transitionDuration = '200ms';
@@ -4524,9 +4524,10 @@
     font-size: 0.4rem;
     color: grey;
     background-color: rgba(0,0,0,0.5);
+    z-index: 9999;
   }
   .address-board {
-    width: 100vw;
+    width: 100%;
     background-color: white;
     position: fixed;
     bottom: 0;
